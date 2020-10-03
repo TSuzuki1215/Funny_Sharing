@@ -1,0 +1,35 @@
+<section class="center-vertical">
+
+</section>
+
+<section>
+	<% if !@musics.nil?  %>
+		<% for follow_timeline in @follow_timeline %>
+			<div class="">
+				<h1><%= follow_timeline.user_id %></h1>
+				<h2><%= follow_timeline.camp_id %></h2>
+				<%# video %>
+				<p><%= follow_timeline.funny_comment_body %></p>
+				<p><%= follow_timeline.good_count %></p>
+				<p><%= follow_timeline.funny_count %></p>
+			</div>
+		<% end %>
+	<% else %>
+		<p>投稿がありません</p>
+	<% end %>
+</section>
+
+
+<%# <section class="center-vertical">
+	<h1>〇〇のイイねした投稿</h1>
+	<p>イイねがありません</p>
+</section>
+
+<section class="center-vertical">
+	<h1>〇〇 のフォロー</h1>
+	<a href="#">フォロー解除</a><br>
+</section>
+
+<section class="center-vertical">
+	<h1>〇〇のフォロワー</h1>
+</section> %>
