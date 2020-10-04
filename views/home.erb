@@ -3,16 +3,18 @@
 </section>
 
 <section>
-	<% if !@musics.nil?  %>
-		<% for follow_timeline in @follow_timeline %>
-			<div class="">
-				<h1><%= follow_timeline.user_id %></h1>
-				<h2><%= follow_timeline.camp_id %></h2>
-				<%# video %>
-				<p><%= follow_timeline.funny_comment_body %></p>
-				<p><%= follow_timeline.good_count %></p>
-				<p><%= follow_timeline.funny_count %></p>
-			</div>
+	<% if !@follow_timeline.nil?  %>
+		<% for follow_timeline in @follow_timeline do %>
+			<% if @camps.id == @user.id %>
+				<div class="">
+					<h1><%= follow_timeline.user_id %></h1>
+					<h2><%= follow_timeline.camp_id %></h2>
+					<%# video %>
+					<p><%= follow_timeline.funny_comment_body %></p>
+					<p><%= follow_timeline.good_count %></p>
+					<p><%= follow_timeline.funny_count %></p>
+				</div>
+			<% end %>
 		<% end %>
 	<% else %>
 		<p>投稿がありません</p>

@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_01_062426) do
+ActiveRecord::Schema.define(version: 2020_09_30_084336) do
 
   create_table "camps", force: :cascade do |t|
     t.string "camp_period"
     t.string "camp_name"
   end
 
-  create_table "comedy_storys", force: :cascade do |t|
+  create_table "comedy_stories", force: :cascade do |t|
     t.integer "user_id"
     t.integer "camp_id"
     t.string "funny_comment_body"
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(version: 2020_10_01_062426) do
     t.string "account"
     t.string "discroption"
     t.string "password_digest"
-    t.string "user_profile_img_url"
+    t.string "user_plofile_img_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["mentor_name", "account", "password_digest"], name: "index_users_on_mentor_name_and_account_and_password_digest", unique: true
+    t.index ["mentor_name", "account"], name: "index_users_on_mentor_name_and_account", unique: true
   end
 
 end

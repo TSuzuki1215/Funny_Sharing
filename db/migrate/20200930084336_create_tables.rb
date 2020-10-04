@@ -5,12 +5,12 @@ class CreateTables < ActiveRecord::Migration[5.2]
       t.string :account
       t.string :discroption
       t.string :password_digest
-      t.string :img_url
+      t.string :user_plofile_img_url
       t.timestamps null: false
-      t.index [:mentor_name, :account, :password_digest], unique: true
+      t.index [:mentor_name, :account], unique: true
     end
 
-    create_table :comedy_storys do |t|
+    create_table :comedy_stories do |t|
       t.integer :user_id
       t.integer :camp_id
       t.string :funny_comment_body

@@ -44,7 +44,7 @@ get '/' do
 end
 
 post '/signin' do
-  user = User.find_by(user_name: params[:user_name])
+  user = User.find_by(mentor_name: params[:mentor_name])
   if user && user.authenticate(params[:password])
     session[:user] = user.id
   end
@@ -67,7 +67,6 @@ post '/signup' do
   user = User.create({
     mentor_name: params[:mentor_name],
     account: params[:account_id],
-    discription: params[:discription],
     password_digest: params[:password],
     password_confirmation: params[:password_confirmation],
     user_profile_img_url: img_url,
@@ -82,6 +81,7 @@ end
 
 get '/home' do
   @user = User.find(session[:user])
+  @camps = Camp.all
   follow_user = Relationship.where(user_id: session[:user])
 
   follow_comedy_story = []

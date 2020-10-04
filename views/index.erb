@@ -1,5 +1,5 @@
 <section class="first-view center-vertical">
-	<h1>MUSIC SNS!!!</h1>
+	<h1>IPPATSU!!!!</h1>
 
 	<% if !current_user.nil? %>
 
@@ -7,7 +7,7 @@
 
 		<div class="login_button">
 			<form action="/signin" method="post">
-				<input type="text" name="user_name" placeholder="ユーザー名">
+				<input type="text" name="mentor_name" placeholder="ユーザー名">
 				<input type="text" name="password" placeholder="password">
 				<input type="submit" value="ログイン">
 			</form>
@@ -19,49 +19,15 @@
 
 <section class="center-vertical">
 
-	<% if !@all_musics.nil? %>
-		<% for all_music in @all_musics do %>
+	<% if !@all_comedys.nil? %>
+		<% for comedy_story in @all_comedys do %>
 			<div class="">
-				<img src="<%= all_music.music_img_url %>" alt="">
-				<p><%= all_music.artist_name %></p>
-				<p><%= all_music.album_name %></p>
-				<p><%= all_music.music_name %></p>
-				<a href="<%= all_music.sample_music_url %>"></a>
-				<p><%= all_music.comment %></p>
-
-				<% if !current_user.nil? %>
-					<% for all_comedy in @all_comedys %>
-						<% if !all_comedy.user_id == session[:user] %>
-							<% if @all_camps.id == all_comedy.camp_id %>
-								<div class="">
-									<h1><%= all_comedy.user_id %></h1>
-									<h2><%= @all_camps.camp_period %></h2>
-									<h2><%= @all_camps.camp_name %></h2>
-									<%# video %>
-									<p><%= all_comedy.funny_comment_body %></p>
-									<p><%= all_comedy.good_count %></p>
-									<p><%= all_comedy.funny_count %></p>
-
-									<%#いいね%>
-									<% if !like_push?(all_music.id) %>
-										<form action="/like" method="post">
-											<input type="hidden" name="like_to_comedy_id" value="<%= all_music.id %>">
-											<input type="hidden" name="user_id" value="<%= session[:user] %>">
-											<input type="submit" value="いいね">
-										</form>
-									<% else %>
-										<form action="/unlike" method="post">
-											<input type="hidden" name="comedy_id" value="<%= all_music.id %>">
-											<input type="submit" value="いいねを外す">
-										</form>
-									<% end %>
-								</div>
-							<% end %>
-
-						<% end %>
-					<% end %>
-				<% end %>
-
+				<h1><%= comedy_story.user_id %></h1>
+				<h2><%= comedy_story.camp_id %></h2>
+				<%# video %>
+				<p><%= comedy_story.funny_comment_body %></p>
+				<p><%= comedy_story.good_count %></p>
+				<p><%= comedy_story.funny_count %></p>
 			</div>
 		<% end %>
 	<% else %>
