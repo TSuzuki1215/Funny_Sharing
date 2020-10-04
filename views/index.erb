@@ -2,6 +2,26 @@
 	<h1>IPPATSU!!!!</h1>
 
 	<% if !current_user.nil? %>
+		<% if !@all_comedys.nil? %>
+			<% for comedy_story in @all_comedys do %>
+				<% user = what_mentor?(comedy_story.user_id) %>
+					<% camp = what_camp?(comedy_story.camp_id) %>
+
+						<div class="">
+							<h1><%= user.mentor_name %></h1>
+							<h4><%= camp.camp_period %></h4>
+							<h2><%= camp.camp_name %></h2>
+							<%# video %>
+							<p><%= comedy_story.funny_comment_body %></p>
+							<p><%= comedy_story.good_count %></p>
+							<p><%= comedy_story.funny_count %></p>
+						</div>
+					<% end %>
+				<% end %>
+			<% end %>
+		<% else %>
+			<p>投稿がありません</p>
+		<% end %>
 
 	<% else %>
 
@@ -19,18 +39,5 @@
 
 <section class="center-vertical">
 
-	<% if !@all_comedys.nil? %>
-		<% for comedy_story in @all_comedys do %>
-			<div class="">
-				<h1><%= comedy_story.user_id %></h1>
-				<h2><%= comedy_story.camp_id %></h2>
-				<%# video %>
-				<p><%= comedy_story.funny_comment_body %></p>
-				<p><%= comedy_story.good_count %></p>
-				<p><%= comedy_story.funny_count %></p>
-			</div>
-		<% end %>
-	<% else %>
-		<p>投稿がありません</p>
-	<% end %>
+
 </section>

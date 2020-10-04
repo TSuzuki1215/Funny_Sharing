@@ -5,7 +5,7 @@ class CreateTables < ActiveRecord::Migration[5.2]
       t.string :account
       t.string :discroption
       t.string :password_digest
-      t.string :user_plofile_img_url
+      t.string :user_profile_img_url
       t.timestamps null: false
       t.index [:mentor_name, :account], unique: true
     end

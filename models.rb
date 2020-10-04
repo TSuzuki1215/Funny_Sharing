@@ -11,9 +11,7 @@ class User < ActiveRecord::Base
   has_many :funnys
   has_many :relationships
 
-  validates :mail,
-    presence: true,
-    format: {with:/.+@.+/}
+
   validates :password,
     length: {in: 5..10}
 end

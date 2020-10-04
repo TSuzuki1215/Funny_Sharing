@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_09_30_084336) do
     t.string "account"
     t.string "discroption"
     t.string "password_digest"
-    t.string "user_plofile_img_url"
+    t.string "user_profile_img_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mentor_name", "account"], name: "index_users_on_mentor_name_and_account", unique: true

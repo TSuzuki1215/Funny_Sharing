@@ -22,19 +22,25 @@ helpers do
   def current_user
     User.find_by(id: session[:user])
   end
-end
 
-helpers do
   def following?(other_user)
     Relationship.find_by(user_id: session[:user],follow_id: other_user)
   end
-end
 
-helpers do
   def like_push?(comedy_id)
     Like.find_by(user_id: session[:user],comedy_story_id: comedy_id)
   end
+
+  def what_mentor?(user_id)
+    User.find_by(user_id: user_id)
+  end
+
+  def what_camp?(camp_id)
+    Camp.find_by(camp_id: camp_id)
+  end
 end
+
+
 
 get '/' do
   @all_comedys = Comedy_story.all.order("id desc")
