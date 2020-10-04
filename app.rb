@@ -80,10 +80,12 @@ post '/signup' do
   user = User.create({
     mentor_name: params[:mentor_name],
     account: params[:account_id],
-    password_digest: params[:password],
+    password: params[:password],
     password_confirmation: params[:password_confirmation],
     user_profile_img_url: img_url,
     })
+
+
 
   if user.persisted?
     session[:user] = user.id
