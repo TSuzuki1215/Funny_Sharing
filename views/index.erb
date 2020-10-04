@@ -5,26 +5,22 @@
 		<% if !@all_comedys.nil? %>
 			<% for comedy_story in @all_comedys do %>
 				<% user = what_mentor?(comedy_story.user_id) %>
-					<% camp = what_camp?(comedy_story.camp_id) %>
-
-						<div class="">
-							<h1><%= user.mentor_name %></h1>
-							<h4><%= camp.camp_period %></h4>
-							<h2><%= camp.camp_name %></h2>
-							<%# video %>
-							<p><%= comedy_story.funny_comment_body %></p>
-							<p><%= comedy_story.good_count %></p>
-							<p><%= comedy_story.funny_count %></p>
-						</div>
-					<% end %>
-				<% end %>
+				<% camp = what_camp?(comedy_story.camp_id) %>
+				<div class="">
+					<h1><%= user.mentor_name %></h1>
+					<h4><%= camp.camp_period %></h4>
+					<h2><%= camp.camp_name %></h2>
+					<%# video %>
+					<p><%= comedy_story.funny_comment_body %></p>
+					<p><%= comedy_story.good_count %></p>
+					<p><%= comedy_story.funny_count %></p>
+				</div>
 			<% end %>
 		<% else %>
 			<p>投稿がありません</p>
 		<% end %>
 
 	<% else %>
-
 		<div class="login_button">
 			<form action="/signin" method="post">
 				<input type="text" name="mentor_name" placeholder="ユーザー名">
@@ -32,12 +28,5 @@
 				<input type="submit" value="ログイン">
 			</form>
 		</div>
-
 	<% end %>
-
-</section>
-
-<section class="center-vertical">
-
-
 </section>
