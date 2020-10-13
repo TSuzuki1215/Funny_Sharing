@@ -40,7 +40,7 @@ class Relationship < ActiveRecord::Base
   belongs_to :user
   belongs_to :follow_user, class_name: 'User'
   validates :user_id, presence: true
-  validates :follow_id, presence: true
+  validates :follow_user_id, presence: true
 end
 
 class Like < ActiveRecord::Base

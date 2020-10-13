@@ -20,7 +20,7 @@ end
 
 helpers do
   def current_user
-    User.find_by(id: session[:user]
+    User.find_by(id: session[:user])
   end
 end
 
@@ -226,8 +226,4 @@ end
 get '/mypage' do
   @user_comedys = Comedy_story.where(user_id: session[:user])
   erb :mypage
-end
-
-post '/funny' do
-
 end

@@ -12,10 +12,12 @@
 						<% if !current_user.following?(comedy_story.user_id) %>
 							<form action="/follow" method="post">
 								<input type="submit" value="フォローする">
+								<input type="hidden" name="follow_id" value="<%= comedy_story.user_id %>">
 							</form>
 						<% else %>
 							<form action="/unfollow" method="post">
 								<input type="submit" value="フォロー解除">
+								<input type="hidden" name="follow_id" value="<%= comedy_story.user_id %>">
 							</form>
 						<% end %>
 					<% else %>
