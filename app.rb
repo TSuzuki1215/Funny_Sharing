@@ -20,13 +20,7 @@ end
 
 helpers do
   def current_user
-    User.find_by(id: session[:user])
-  end
-end
-
-helpers do
-  def following?(other_user)
-    Relationship.find_by(user_id: session[:user],follow_id: other_user)
+    User.find_by(id: session[:user]
   end
 end
 
@@ -37,14 +31,20 @@ helpers do
 end
 
 helpers do
+  def funny_push?(comedy_id)
+    Funny.find_by(user_id: session[:user],comedy_story_id: comedy_id)
+  end
+end
+
+helpers do
   def what_mentor?(user_id)
-    User.find_by(user_id: user_id)
+    User.find_by(id: user_id)
   end
 end
 
 helpers do
   def what_camp?(camp_id)
-    Camp.find_by(camp_id: camp_id)
+    Camp.find_by(id: camp_id)
   end
 end
 
@@ -96,32 +96,9 @@ end
 
 get '/home' do
   @user = User.find(session[:user])
-  @camps = Camp.all
-  follow_user = Relationship.where(user_id: session[:user])
+  @all_comedys = Comedy_story.all.order("id desc")
 
-  follow_comedy_story = []
-
-  for i in follow_user.follow_user_id do
-    follow_comedy_story.push(Comedy_story.find_by(user_id: i))
-  end
-  @follow_timeline = follow_comedy_story
-  @follow_user_comedy = Comedy_story.where(user_id: follow_user.id)
   erb :home
-end
-
-get '/search' do
-  erb :search
-end
-
-post '/search' do
-  @search_artist_name = params[:artist_name]
-
-  res_o = Net::HTTP.get(URI.parse("https://itunes.apple.com/search?term=#{@search_artist_name}&country=US&media=music&limit=30"))
-  hash_o = JSON.parse(res_o)
-
-  @search_result = hash_o["results"]
-
-  erb :search
 end
 
 get '/signout' do
@@ -148,24 +125,24 @@ end
 
 post '/delete' do
 
-  Music.find(params[:music_id]).destroy
+  Comedy_story.find(params[:comedy_id]).destroy
 
-  redirect '/home'
+  redirect '/mypage'
 end
 
-get '/edit/:id' do
-  @edit_music = Music.find(params[:id])
+get '/edit' do
+  @edit_story = Comedy_story.find(params[:comedy_id])
   erb :edit
 end
 
-post '/edit/:id' do
-  content = Music.find(params[:id])
+post '/edit' do
+  content = Comedy_story.find(params[:comedy_story_id])
 
   content.update({
-    comment: params[:edit_comment],
+    funny_comment_body: params[:edit_comedy_body],
   })
 
-  redirect '/home'
+  redirect '/mypage'
 end
 
 post '/like' do
@@ -174,14 +151,9 @@ post '/like' do
     comedy_story_id: params[:like_to_comedy_id],
   })
 
-  redirect '/'
-end
-
-post '/follow' do
-  Relationship.create({
-    user_id: session[:user],
-    follow_id: params[:follow_id],
-  })
+  content = Comedy_story.find(params[:comedy_id])
+  content.good_count = content.good_count + 1
+  content.save
 
   redirect '/'
 end
@@ -189,11 +161,73 @@ end
 post '/unlike' do
   Like.find_by(user_id: session[:user], comedy_id: params[:comedy_id]).destroy
 
+  content = Comedy_story.find(params[:comedy_id])
+  content.good_count = content.good_count - 1
+  content.save
+
   redirect '/'
 end
+
+post 'funny' do
+  Funny.create({
+    user_id: params[:user_id],
+    comedy_story_id: params[:funny_to_comedy_id],
+  })
+
+  content = Comedy_story.find(params[:comedy_id])
+  content.funny_count = content.funny_count + 1.5
+  content.save
+
+  redirect '/'
+end
+
+post '/unfunny' do
+  Funny.find_by(user_id: session[:user], comedy_id: params[:comedy_id]).destroy
+
+  content = Comedy_story.find(params[:comedy_id])
+  content.funny_count = content.funny_count - 1.5
+  content.save
+
+  redirect '/'
+end
+
+post '/follow' do
+  Relationship.create({
+    user_id: session[:user],
+    follow_user_id: params[:follow_id],
+  })
+
+  redirect '/'
+end
+
+
 
 post '/unfollow' do
   Relationship.find_by(user_id: session[:user], follow_id: params[:follow_id]).destroy
 
   redirect '/'
+end
+
+get '/post' do
+  @all_camps = Camp.all.order("id desc")
+
+  erb :post
+end
+
+post '/post_comedy' do
+  Comedy_story.create({
+    user_id: params[:user_id],
+    camp_id: params[:camp_id],
+    funny_comment_body: params[:comment_body],
+  })
+  redirect '/'
+end
+
+get '/mypage' do
+  @user_comedys = Comedy_story.where(user_id: session[:user])
+  erb :mypage
+end
+
+post '/funny' do
+
 end

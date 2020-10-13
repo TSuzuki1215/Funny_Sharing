@@ -3,7 +3,7 @@
 </section>
 
 <% if !current_user.nil? %>
-	<section>
+	<section class="">
 		<% if !@follow_comedy.nil? %>
 			<% for all_comedy in @all_comedys do %>
 				<% if following?(all_comedy.user_id) %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_30_084336) do
+ActiveRecord::Schema.define(version: 2020_10_13_151502) do
 
   create_table "camps", force: :cascade do |t|
     t.string "camp_period"
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 2020_09_30_084336) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "funnys", force: :cascade do |t|
+  create_table "funnies", force: :cascade do |t|
     t.integer "user_id"
     t.integer "comedy_story_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "comedy_story_id"], name: "index_funnys_on_user_id_and_comedy_story_id", unique: true
+    t.index ["user_id", "comedy_story_id"], name: "index_funnies_on_user_id_and_comedy_story_id", unique: true
   end
 
   create_table "likes", force: :cascade do |t|

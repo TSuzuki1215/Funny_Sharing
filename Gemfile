@@ -22,6 +22,8 @@ gem 'dotenv'
 gem 'simple_oauth'
 gem 'http'
 
+gem 'carrierwave', '~> 2.0'
+
 group :development do
   gem 'sqlite3', '1.4.1'
   gem 'pry'

@@ -1,7 +1,8 @@
 <section class="center-vertical">
 	<h1>コメントの更新</h1>
-	<form action="/edit/<%= @edit_music.id %>" method="post">
-		<input type="text" name="edit_comment">
+	<form action="/edit" method="post">
+		<input type="text" name="edit_comedy_body">
 		<input type="submit" value="更新">
+		<input type="hidden" name="comedy_story_id" value="<%= @edit_story.id %>">
 	</form>
 </section>

@@ -22,8 +22,8 @@ class CreateTables < ActiveRecord::Migration[5.2]
     end
 
     create_table :relationships do |t|
-      t.integer :user_id
-      t.integer :follow_user_id
+      t.integer :user_id, foreign_key: true
+      t.integer :follow_user_id, foreign_key: { to_table: :users }
       t.timestamps null: false
       t.index [:user_id, :follow_user_id], unique: true
 

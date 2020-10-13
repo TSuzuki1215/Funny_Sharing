@@ -8,12 +8,52 @@
 				<% camp = what_camp?(comedy_story.camp_id) %>
 				<div class="">
 					<h1><%= user.mentor_name %></h1>
+					<% if comedy_story.user_id != session[:user] %>
+						<% if !current_user.following?(comedy_story.user_id) %>
+							<form action="/follow" method="post">
+								<input type="submit" value="フォローする">
+							</form>
+						<% else %>
+							<form action="/unfollow" method="post">
+								<input type="submit" value="フォロー解除">
+							</form>
+						<% end %>
+					<% else %>
+					<% end %>
+
 					<h4><%= camp.camp_period %></h4>
 					<h2><%= camp.camp_name %></h2>
 					<%# video %>
 					<p><%= comedy_story.funny_comment_body %></p>
 					<p><%= comedy_story.good_count %></p>
 					<p><%= comedy_story.funny_count %></p>
+
+					<% if comedy_story.user_id != session[:user] %>
+						<% if !like_push?(comedy_story.id) %>
+							<form action="/like">
+								<input type="submit" value="いいね">
+								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
+							</form>
+						<% else %>
+							<form action="/unlike">
+								<input type="submit" value="いいねを外す">
+								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
+							</form>
+						<% end %>
+
+						<% if !funny_push?(comedy_story.id) %>
+							<form action="/funny">
+								<input type="submit" value="おもろい">
+								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
+							</form>
+						<% else %>
+							<form action="/unfunny">
+								<input type="submit" value="やっぱつまらない">
+								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
+							</form>
+						<% end %>
+					<% end %>
+
 				</div>
 			<% end %>
 		<% else %>
