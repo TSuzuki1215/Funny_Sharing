@@ -152,8 +152,16 @@ post '/like' do
   })
 
   content = Comedy_story.find(params[:comedy_id])
-  content.good_count = content.good_count + 1
-  content.save
+  good = content.good_count
+  content.update({
+    good_count: good + 1
+  })
+
+  content_total = Comedy_story.find(params[:comedy_id])
+  total = content_total.total_point
+  content.update({
+    total_point: total + 1,
+  })
 
   redirect '/'
 end
@@ -162,8 +170,16 @@ post '/unlike' do
   Like.find_by(user_id: session[:user], comedy_id: params[:comedy_id]).destroy
 
   content = Comedy_story.find(params[:comedy_id])
-  content.good_count = content.good_count - 1
-  content.save
+  good = content.good_count
+  content.update({
+    good_count: good - 1,
+  })
+
+  content_total = Comedy_story.find(params[:comedy_id])
+  total = content_total.total_point
+  content.update({
+    total_point: total - 1,
+  })
 
   redirect '/'
 end
@@ -175,8 +191,16 @@ post 'funny' do
   })
 
   content = Comedy_story.find(params[:comedy_id])
-  content.funny_count = content.funny_count + 1.5
-  content.save
+  funny = content.funny_count
+  content.update({
+    funny_count: funny + 1,
+  })
+
+  content_total = Comedy_story.find(params[:comedy_id])
+  total = content_total.total_point
+  content.update({
+    total_point: total + 1.5,
+  })
 
   redirect '/'
 end
@@ -185,8 +209,16 @@ post '/unfunny' do
   Funny.find_by(user_id: session[:user], comedy_id: params[:comedy_id]).destroy
 
   content = Comedy_story.find(params[:comedy_id])
-  content.funny_count = content.funny_count - 1.5
-  content.save
+  funny = content.funny_count
+  content.update({
+    funny_count: funny - 1,
+  })
+
+  content_total = Comedy_story.find(params[:comedy_id])
+  total = content_total.total_point
+  content.update({
+    total_point: total - 1.5,
+  })
 
   redirect '/'
 end
@@ -219,6 +251,9 @@ post '/post_comedy' do
     user_id: params[:user_id],
     camp_id: params[:camp_id],
     funny_comment_body: params[:comment_body],
+    good_count: 0,
+    funny_count: 0,
+    total_point: 0,
   })
   redirect '/'
 end
