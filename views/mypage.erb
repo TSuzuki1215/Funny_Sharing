@@ -4,7 +4,7 @@
 
 <% if !current_user.nil? %>
 	<section class="">
-		<% if @user_comedys.nil? %>
+		<% if !@user_comedys.nil? %>
 			<% for user_comedy in @user_comedys do %>
 				<% camp = what_camp?(user_comedy.camp_id) %>
 				<div class="">
@@ -12,8 +12,8 @@
 					<h2><%= camp.camp_name %></h2>
 					<%# video %>
 					<p><%= user_comedy.funny_comment_body %></p>
-					<p><%= user_comedy.good_count %></p>
-					<p><%= user_comedy.funny_count %></p>
+					<p>いいね<%= user_comedy.good_count %></p>
+					<p>おもろい<%= user_comedy.funny_count %></p>
 
 
 

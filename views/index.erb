@@ -9,7 +9,7 @@
 				<div class="">
 					<h1><%= user.mentor_name %></h1>
 					<% if comedy_story.user_id != session[:user] %>
-						<% if !current_user.following?(comedy_story.user_id) %>
+						<% if following?(comedy_story.user_id).nil? %>
 							<form action="/follow" method="post">
 								<input type="submit" value="フォローする">
 								<input type="hidden" name="follow_id" value="<%= comedy_story.user_id %>">
@@ -31,7 +31,7 @@
 					<p>おもろい<%= comedy_story.funny_count %></p>
 
 					<% if comedy_story.user_id != session[:user] %>
-						<% if !like_push?(comedy_story.id) %>
+						<% if like_push?(comedy_story.id).nil? %>
 							<form action="/like" method="post">
 								<input type="submit" value="いいね">
 								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
@@ -43,7 +43,7 @@
 							</form>
 						<% end %>
 
-						<% if !funny_push?(comedy_story.id) %>
+						<% if funny_push?(comedy_story.id).nil? %>
 							<form action="/funny" method="post">
 								<input type="submit" value="おもろい">
 								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">

@@ -48,6 +48,13 @@ helpers do
   end
 end
 
+helpers do
+  def following?(other_user)
+    Relationship.find_by(user_id: session[:user],follow_user_id: other_user)
+  end
+end
+
+
 
 
 get '/' do
@@ -147,14 +154,14 @@ end
 
 post '/like' do
   Like.create({
-    user_id: params[:user_id],
-    comedy_story_id: params[:like_to_comedy_id],
+    user_id: session[:user],
+    comedy_story_id: params[:comedy_id],
   })
 
   content = Comedy_story.find(params[:comedy_id])
   good = content.good_count
   content.update({
-    good_count: good + 1
+    good_count: good + 1,
   })
 
   content_total = Comedy_story.find(params[:comedy_id])
@@ -167,7 +174,7 @@ post '/like' do
 end
 
 post '/unlike' do
-  Like.find_by(user_id: session[:user], comedy_id: params[:comedy_id]).destroy
+  Like.find_by(user_id: session[:user], comedy_story_id: params[:comedy_id]).destroy
 
   content = Comedy_story.find(params[:comedy_id])
   good = content.good_count
@@ -184,10 +191,10 @@ post '/unlike' do
   redirect '/'
 end
 
-post 'funny' do
+post '/funny' do
   Funny.create({
-    user_id: params[:user_id],
-    comedy_story_id: params[:funny_to_comedy_id],
+    user_id: session[:user],
+    comedy_story_id: params[:comedy_id],
   })
 
   content = Comedy_story.find(params[:comedy_id])
@@ -206,7 +213,7 @@ post 'funny' do
 end
 
 post '/unfunny' do
-  Funny.find_by(user_id: session[:user], comedy_id: params[:comedy_id]).destroy
+  Funny.find_by(user_id: session[:user], comedy_story_id: params[:comedy_id]).destroy
 
   content = Comedy_story.find(params[:comedy_id])
   funny = content.funny_count
@@ -235,7 +242,7 @@ end
 
 
 post '/unfollow' do
-  Relationship.find_by(user_id: session[:user], follow_id: params[:follow_id]).destroy
+  Relationship.find_by(user_id: session[:user], follow_user_id: params[:follow_id]).destroy
 
   redirect '/'
 end
@@ -261,4 +268,14 @@ end
 get '/mypage' do
   @user_comedys = Comedy_story.where(user_id: session[:user])
   erb :mypage
+end
+
+get '/follow_timeline' do
+
+  all_comedy_stories = Comedy_story.all.order("id desc")
+  @follow_user = Relationship.where(user_id: session[:user])
+
+  @follow_user_id = @follow_user.follow_user_id
+
+  @follow_comedys = Comedy_story.where(user_id: @follow_user_id).order("created_at desc")
 end
