@@ -272,10 +272,9 @@ end
 
 get '/follow_timeline' do
 
-  all_comedy_stories = Comedy_story.all.order("id desc")
-  @follow_user = Relationship.where(user_id: session[:user])
+  follow_user = Relationship.where(user_id: session[:user])
 
-  @follow_user_id = @follow_user.follow_user_id
+  follow_user_id = follow_user.follow_user_id
 
-  @follow_comedys = Comedy_story.where(user_id: @follow_user_id).order("created_at desc")
+  @follow_comedys = Comedy_story.where(user_id: follow_user_id).order("created_at desc")
 end
