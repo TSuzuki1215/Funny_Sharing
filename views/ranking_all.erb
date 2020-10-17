@@ -1,0 +1,33 @@
+<section class="MainContents">
+	<div class="TimeLine">
+		<h1>Ranking!</h1>
+
+		<% if !current_user.nil? %>
+			<% if !@total_rankings.nil? %>
+				<% i = 1 %>
+				<% for ranking in @total_rankings do %>
+					<div class="ListCont">
+						<h2><%= i %></h2>
+						<% user = what_mentor?(ranking.user_id) %>
+						<% camp = what_camp?(ranking.camp_id) %>
+						<div class="TimeList">
+							<h1><%= user.mentor_name %></h1>
+							<h4><%= camp.camp_period %></h4>
+							<h2><%= camp.camp_name %></h2>
+							<%# video %>
+							<p><%= ranking.funny_comment_body %></p>
+
+							<% i += 1 %>
+
+						</div>
+					</div>
+				<% end %>
+			<% else %>
+				<p>投稿がありません</p>
+			<% end %>
+
+		<% else %>
+
+		<% end %>
+	</div>
+</section>

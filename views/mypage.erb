@@ -3,35 +3,37 @@
 </section>
 
 <% if !current_user.nil? %>
-	<section class="">
-		<% if !@user_comedys.nil? %>
-			<% for user_comedy in @user_comedys do %>
-				<% camp = what_camp?(user_comedy.camp_id) %>
-				<div class="">
-					<h4><%= camp.camp_period %></h4>
-					<h2><%= camp.camp_name %></h2>
-					<%# video %>
-					<p><%= user_comedy.funny_comment_body %></p>
-					<p>いいね<%= user_comedy.good_count %></p>
-					<p>おもろい<%= user_comedy.funny_count %></p>
+	<section class="MainContents">
+    <div class="TimeLine">
+      <% if !@user_comedys.nil? %>
+        <% for user_comedy in @user_comedys do %>
+          <% camp = what_camp?(user_comedy.camp_id) %>
+          <div class="ListCont">
+            <h4><%= camp.camp_period %></h4>
+            <h2><%= camp.camp_name %></h2>
+            <%# video %>
+            <p><%= user_comedy.funny_comment_body %></p>
+            <p>いいね<%= user_comedy.good_count %></p>
+            <p>おもろい<%= user_comedy.funny_count %></p>
 
 
 
 
 
-          <form action="/edit">
-            <input type="submit" value="編集">
-            <input type="hidden" name="comedy_id" value="<%= user_comedy.id %>">
-          </form>
-          <form action="/delete" method="post">
-            <input type="submit" value="削除">
-            <input type="hidden" name="comedy_id" value="<%= user_comedy.id %>">
-          </form>
-				</div>
-			<% end %>
-		<% else %>
-			<p>投稿がありません</p>
-		<% end %>
+            <form action="/edit">
+              <input type="submit" value="編集">
+              <input type="hidden" name="comedy_id" value="<%= user_comedy.id %>">
+            </form>
+            <form action="/delete" method="post">
+              <input type="submit" value="削除">
+              <input type="hidden" name="comedy_id" value="<%= user_comedy.id %>">
+            </form>
+          </div>
+        <% end %>
+      <% else %>
+        <p>投稿がありません</p>
+      <% end %>
+    </div>
 	</section>
 <% else %>
   <a href="/">ログインはこちら</a>

@@ -1,74 +1,86 @@
-<section class="first-view center-vertical">
-	<h1>IPPATSU!!!!</h1>
+<section class="MainContents">
 
 	<% if !current_user.nil? %>
 		<% if !@all_comedys.nil? %>
-			<% for comedy_story in @all_comedys do %>
-				<% user = what_mentor?(comedy_story.user_id) %>
-				<% camp = what_camp?(comedy_story.camp_id) %>
-				<div class="">
-					<h1><%= user.mentor_name %></h1>
-					<% if comedy_story.user_id != session[:user] %>
-						<% if following?(comedy_story.user_id).nil? %>
-							<form action="/follow" method="post">
-								<input type="submit" value="フォローする">
-								<input type="hidden" name="follow_id" value="<%= comedy_story.user_id %>">
-							</form>
+			<div class="TimeLine">
+				<% for comedy_story in @all_comedys do %>
+					<% user = what_mentor?(comedy_story.user_id) %>
+					<% camp = what_camp?(comedy_story.camp_id) %>
+					<div class="ListCont">
+						<h1><%= user.mentor_name %></h1>
+						<% if comedy_story.user_id != session[:user] %>
+							<% if following?(comedy_story.user_id).nil? %>
+								<form action="/follow" method="post">
+									<input type="submit" value="フォローする">
+									<input type="hidden" name="follow_id" value="<%= comedy_story.user_id %>">
+								</form>
+							<% else %>
+								<form action="/unfollow" method="post">
+									<input type="submit" value="フォロー解除">
+									<input type="hidden" name="follow_id" value="<%= comedy_story.user_id %>">
+								</form>
+							<% end %>
 						<% else %>
-							<form action="/unfollow" method="post">
-								<input type="submit" value="フォロー解除">
-								<input type="hidden" name="follow_id" value="<%= comedy_story.user_id %>">
-							</form>
-						<% end %>
-					<% else %>
-					<% end %>
-
-					<h4><%= camp.camp_period %></h4>
-					<h2><%= camp.camp_name %></h2>
-					<%# video %>
-					<p><%= comedy_story.funny_comment_body %></p>
-					<p>いいね<%= comedy_story.good_count %></p>
-					<p>おもろい<%= comedy_story.funny_count %></p>
-
-					<% if comedy_story.user_id != session[:user] %>
-						<% if like_push?(comedy_story.id).nil? %>
-							<form action="/like" method="post">
-								<input type="submit" value="いいね">
-								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
-							</form>
-						<% else %>
-							<form action="/unlike" method="post">
-								<input type="submit" value="いいねを外す">
-								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
-							</form>
 						<% end %>
 
-						<% if funny_push?(comedy_story.id).nil? %>
-							<form action="/funny" method="post">
-								<input type="submit" value="おもろい">
-								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
-							</form>
-						<% else %>
-							<form action="/unfunny" method="post">
-								<input type="submit" value="やっぱつまらない">
-								<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
-							</form>
-						<% end %>
-					<% end %>
+						<h4><%= camp.camp_period %></h4>
+						<h2><%= camp.camp_name %></h2>
+						<%# video %>
+						<p><%= comedy_story.funny_comment_body %></p>
+						<p>いいね<%= comedy_story.good_count %></p>
+						<p>おもろい<%= comedy_story.funny_count %></p>
 
-				</div>
-			<% end %>
+						<% if comedy_story.user_id != session[:user] %>
+							<% if like_push?(comedy_story.id).nil? %>
+								<form action="/like" method="post">
+									<input type="submit" value="いいね">
+									<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
+								</form>
+							<% else %>
+								<form action="/unlike" method="post">
+									<input type="submit" value="いいねを外す">
+									<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
+								</form>
+							<% end %>
+
+							<% if funny_push?(comedy_story.id).nil? %>
+								<form action="/funny" method="post">
+									<input type="submit" value="おもろい">
+									<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
+								</form>
+							<% else %>
+								<form action="/unfunny" method="post">
+									<input type="submit" value="やっぱつまらない">
+									<input type="hidden" name="comedy_id" value="<%= comedy_story.id %>">
+								</form>
+							<% end %>
+						<% end %>
+
+					</div>
+				<% end %>
+			</div>
 		<% else %>
 			<p>投稿がありません</p>
 		<% end %>
 
 	<% else %>
-		<div class="login_button">
-			<form action="/signin" method="post">
-				<input type="text" name="mentor_name" placeholder="メンター名">
-				<input type="text" name="password" placeholder="パスワード">
-				<input type="submit" value="ログイン">
-			</form>
+		<div class="TopWhole">
+			<div class="TitleLogo">
+				<h1>Welcome to Funny Experience <span>IPPATSU</span></h1>
+			</div>
+			<div class="OpenPage">
+				<div class="LoginButton">
+					<form action="/signin" method="post">
+						<input type="text" name="mentor_name" placeholder="メンター名">
+						<input type="text" name="password" placeholder="パスワード">
+						<input type="submit" value="ログイン">
+					</form>
+				</div>
+				<div class="SignupButton">
+					<p>アカウントをお持ちでないですか？</p>
+					<a href="/signup">登録する</a>
+				</div>
+			</div>
 		</div>
 	<% end %>
 </section>

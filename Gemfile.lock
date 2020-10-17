@@ -144,6 +144,7 @@ DEPENDENCIES
   dotenv
   fastri
   http
+  mini_magick
   pg (= 0.21.0)
   pry
   rack

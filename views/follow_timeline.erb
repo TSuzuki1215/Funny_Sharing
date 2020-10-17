@@ -4,34 +4,9 @@
 
 <% if !current_user.nil? %>
 	<section class="">
-		<% if !@follow_comedys.nil? %>
-			<% for follow_comedy in @follow_comedys do %>
-				<% if !following?(follow_comedy.user_id).nil? %>
-					<% camp = camp_name(follow_comedy.camp_id) %>
-					<% mentor = what_mentor?(follow_comedy.user_id) %>
-					<div class="">
-						<h1><%= mentor.mentor_name %></h1>
-						<h4><%= camp.camp_period %></h4>
-						<h2><%= camp.camp_name %></h2>
-						<%# video %>
-						<p><%= follow_comedy.funny_comment_body %></p>
-						<p><%= follow_comedy.good_count %></p>
-						<p><%= follow_comedy.funny_count %></p>
-					</div>
-				<% end %>
-			<% end %>
-		<% else %>
+		<% if @follow_comedys.nil? %>
 			<p>投稿がありません</p>
-		<% end %>
-	</section>
-<% else %>
-	<a href="/">ログインはこちらから</a>
-<% end %>
-
-
-<% if !current_user.nil? %>
-	<section class="">
-		<% if !@follow_comedys.nil? %>
+		<% else %>
 			<% for follow_comedy in @follow_comedys do %>
 				<% camp = camp_name(follow_comedy.camp_id) %>
 				<% mentor = what_mentor?(follow_comedy.user_id) %>
@@ -45,24 +20,8 @@
 					<p><%= follow_comedy.funny_count %></p>
 				</div>
 			<% end %>
-		<% else %>
-			<p>投稿がありません</p>
 		<% end %>
 	</section>
 <% else %>
 	<a href="/">ログインはこちらから</a>
 <% end %>
-
-<%# <section class="center-vertical">
-	<h1>〇〇のイイねした投稿</h1>
-	<p>イイねがありません</p>
-</section>
-
-<section class="center-vertical">
-	<h1>〇〇 のフォロー</h1>
-	<a href="#">フォロー解除</a><br>
-</section>
-
-<section class="center-vertical">
-	<h1>〇〇のフォロワー</h1>
-</section> %>

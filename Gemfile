@@ -23,6 +23,7 @@ gem 'simple_oauth'
 gem 'http'
 
 gem 'carrierwave', '~> 2.0'
+gem 'mini_magick'
 
 group :development do
   gem 'sqlite3', '1.4.1'

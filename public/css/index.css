@@ -1,0 +1,94 @@
+.CenterHrizontal {
+  justify-content: space-between;
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  background-color: rgb(255, 255, 255);
+  z-index: 999;
+}
+
+.Bar {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  border: 1px solid rgb(219, 219, 219);
+}
+
+.TopWhole {
+  width: 100%;
+  height: 46em;
+  background-color: rgb(219, 219, 219);
+  display: flex;
+}
+
+.TitleLogo {
+  width: 60%;
+  display: flex;
+}
+
+.TitleLogo h1 {
+  margin: auto;
+}
+
+.TitleLogo span {
+  font-family: vdl-logojrblack, sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 40px;
+}
+
+.OpenPage {
+  width: 40%;
+  background-color: rgb(245, 245, 245);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  /*左右中央揃え*/
+  align-items: center;
+  /*上下中央揃え*/
+}
+
+.LoginButton {
+  width: 200px;
+  height: 100px;
+  margin: auto;
+}
+
+.SignupButton {
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  padding: 40px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(219, 219, 219);
+  text-align: center;
+  border-radius: 3px;
+}
+
+.ListCont {
+  width: 100%;
+  margin-bottom: 6.3em;
+  border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
+  border-radius: 3px;
+  background-color: rgba(var(--d87, 255, 255, 255), 1);
+}
+
+.MainContents {
+  width: 100%;
+  height: 100%;
+  padding-top: 10em;
+  padding-bottom: 5em;
+  justify-content: center;
+  background-color: rgb(245, 245, 245);
+  position: relative;
+}
+
+.TimeLine {
+  display: block;
+  margin: 0 auto;
+  width: 700px;
+  margin-top: 5em;
+  justify-content: center;
+  position: relative;
+}

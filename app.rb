@@ -76,29 +76,36 @@ get '/signup' do
 end
 
 post '/signup' do
-  img_url = ""
-  if params[:user_profile]
-    img = params[:user_profile]
-    tempfile = img[:tempfile]
-    upload = Cloudinary::Uploader.upload(tempfile.path)
-    img_url = upload["url"]
+  if User.find_by(mentor_name: params[:mentor_name]).nil?
+
+
+
+    img_url = ""
+    if params[:user_profile]
+      img = params[:user_profile]
+      tempfile = img[:tempfile]
+      upload = Cloudinary::Uploader.upload(tempfile.path)
+      img_url = upload["url"]
+    end
+
+    user = User.create({
+      mentor_name: params[:mentor_name],
+      password: params[:password],
+      password_confirmation: params[:password_confirmation],
+      user_profile_img_url: img_url,
+      })
+
+
+
+    if user.persisted?
+      session[:user] = user.id
+    end
+
+    redirect '/'
+
+  else
+    redirect '/signup'
   end
-
-  user = User.create({
-    mentor_name: params[:mentor_name],
-    account: params[:account_id],
-    password: params[:password],
-    password_confirmation: params[:password_confirmation],
-    user_profile_img_url: img_url,
-    })
-
-
-
-  if user.persisted?
-    session[:user] = user.id
-  end
-
-  redirect '/'
 end
 
 get '/home' do
@@ -206,7 +213,7 @@ post '/funny' do
   content_total = Comedy_story.find(params[:comedy_id])
   total = content_total.total_point
   content.update({
-    total_point: total + 1.5,
+    total_point: total + 2,
   })
 
   redirect '/'
@@ -224,7 +231,7 @@ post '/unfunny' do
   content_total = Comedy_story.find(params[:comedy_id])
   total = content_total.total_point
   content.update({
-    total_point: total - 1.5,
+    total_point: total - 2,
   })
 
   redirect '/'
@@ -272,9 +279,16 @@ end
 
 get '/follow_timeline' do
 
-  follow_user = Relationship.where(user_id: session[:user])
+  follow_user_id = Relationship.where(user_id: session[:user])
 
-  follow_user_id = follow_user.follow_user_id
+  @follow_comedys = Comedy_story.where(user_id: follow_user_id).order(created_at: "desc")
 
-  @follow_comedys = Comedy_story.where(user_id: follow_user_id).order("created_at desc")
+
+  erb :follow_timeline
+end
+
+get '/ranking_all' do
+  @total_rankings = Comedy_story.all.order(total_point: "DESC")
+
+  erb :ranking_all
 end
