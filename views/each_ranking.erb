@@ -1,20 +1,21 @@
 <section class="MainContents">
 	<div class="TimeLine">
-		<h1>ALL Ranking!</h1>
+		<h1>Camp Ranking!</h1>
+    <h2><%= @selected_camp.camp_period %>・<%= @selected_camp.camp_name %></h2>
 
 		<form action="/camp_ranking">
 			<select name="selected_ranking">
 				<% @all_camps.each do |camp| %>
 					<option value="<%= camp.id %>"><%= camp.camp_period %>・<%= camp.camp_name %></option>
 				<% end %>
-				<input type="submit" value="キャンプ毎">
 			</select>
+      <input type="submit" value="キャンプ毎">
 		</form>
 
 		<% if !current_user.nil? %>
-			<% if !@total_rankings.nil? %>
+			<% if !@selected_camp_ranking.nil? %>
 				<% i = 1 %>
-				<% for ranking in @total_rankings do %>
+				<% for ranking in @selected_camp_ranking do %>
 					<div class="ListCont">
 						<h2><%= i %></h2>
 						<% user = what_mentor?(ranking.user_id) %>

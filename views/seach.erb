@@ -1,0 +1,29 @@
+<section class="MainContents">
+	<% if !current_user.nil? %>
+			<% if @camp_comedys.nil? %>
+				<p>投稿がありません</p>
+			<% else %>
+				<div class="TimeLine">
+          <h2><%= @selected_camp.camp_period %>・<%= @selected_camp.camp_name %></h2>
+					<% @camp_comedys.each do |camp_comedy| %>
+						<% mentor = what_mentor?(camp_comedy.user_id) %>
+						<div class="ListCont">
+							<h1><%= mentor.mentor_name %></h1>
+							<video width="100%" height='100%' preload="none" controls muted autoplay loop>
+								<source src="<%= camp_comedy.video_url %>#t=0.5" type="video/mp4">
+								<source src="<%= camp_comedy.video_url %>#t=0.5" type="video/ogg">
+								<source src="<%= camp_comedy.video_url %>#t=0.5" type="video/webm">
+								<source src="<%= camp_comedy.video_url %>#t=0.5" type="video/mov">
+							</video>
+							<p><%= camp_comedy.funny_comment_body %></p>
+							<p>いいね<%= camp_comedy.good_count %></p>
+							<p>おもろい<%= camp_comedy.funny_count %></p>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+
+	<% else %>
+		<a href="/">ログインはこちらから</a>
+	<% end %>
+</section>

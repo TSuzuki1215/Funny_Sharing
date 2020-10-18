@@ -6,6 +6,7 @@ require 'sinatra/reloader' if development?
 require './models'
 require 'dotenv/load'
 require 'carrierwave/orm/activerecord'
+# require 'pry'
 
 enable :sessions
 
@@ -60,6 +61,7 @@ end
 
 get '/' do
   @all_comedys = Comedy_story.all.order("id desc")
+  @all_camps = Camp.all.order("id desc")
 
   erb :index
 end
@@ -112,6 +114,8 @@ end
 get '/home' do
   @user = User.find(session[:user])
   @all_comedys = Comedy_story.all.order("id desc")
+  @all_camps = Camp.all.order("id desc")
+
 
   erb :home
 end
@@ -146,6 +150,7 @@ post '/delete' do
 end
 
 get '/edit' do
+  @all_camps = Camp.all.order("id desc")
   @edit_story = Comedy_story.find(params[:comedy_id])
   erb :edit
 end
@@ -287,22 +292,46 @@ post '/post_comedy' do
 end
 
 get '/mypage' do
+  @all_camps = Camp.all.order("id desc")
   @user_comedys = Comedy_story.where(user_id: session[:user])
   erb :mypage
 end
 
 get '/follow_timeline' do
 
-  follow_user_id = Relationship.where(user_id: session[:user])
+  # binding.pry
+  @all_camps = Camp.all.order("id desc")
 
-  @follow_comedys = Comedy_story.where(user_id: follow_user_id).order(created_at: "desc")
+  follow_user_ids = Relationship.where(user_id: session[:user]).pluck(:follow_user_id)
+
+  @follow_comedys = Comedy_story.where(user_id: follow_user_ids).order(created_at: "desc")
 
 
   erb :follow_timeline
 end
 
 get '/ranking_all' do
+  @all_camps = Camp.all.order("id desc")
   @total_rankings = Comedy_story.all.order(total_point: "DESC").limit(5)
 
   erb :ranking_all
+end
+
+get '/seach' do
+  @camp_comedys = Comedy_story.where(camp_id: params[:seach_camp])
+
+  @selected_camp = Camp.find(params[:seach_camp])
+
+  @all_camps = Camp.all.order("id desc")
+
+  erb :seach
+end
+
+get '/camp_ranking' do
+  @all_camps = Camp.all.order("id desc")
+  @selected_camp_ranking = Comedy_story.where(camp_id: params[:selected_ranking]).order(total_point: "DESC")
+
+  @selected_camp = Camp.find(params[:selected_ranking])
+
+  erb :each_ranking
 end

@@ -26,6 +26,14 @@
 			<a href="/mypage">MYPAGE</a>
 			<a href="/ranking_all">Ranking</a>
 			<a href="/signout">logout</a>
+			<form action="/seach">
+				<select name="seach_camp">
+					<% @all_camps.each do |camps| %>
+						<option value="<%= camps.id %>"><%= camps.camp_period %>・<%= camps.camp_name %></option>
+					<% end %>
+				</select>
+				<input type="submit" value="seach">
+			</form>
 		</div>
 	</nav>
 

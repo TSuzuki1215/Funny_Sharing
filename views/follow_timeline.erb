@@ -4,17 +4,22 @@
 				<p>投稿がありません</p>
 			<% else %>
 				<div class="TimeLine">
-					<% for follow_comedy in @follow_comedys do %>
-						<% camp = camp_name(follow_comedy.camp_id) %>
+					<% @follow_comedys.each do |follow_comedy| %>
+						<% camp = what_camp?(follow_comedy.camp_id) %>
 						<% mentor = what_mentor?(follow_comedy.user_id) %>
 						<div class="ListCont">
 							<h1><%= mentor.mentor_name %></h1>
 							<h4><%= camp.camp_period %></h4>
 							<h2><%= camp.camp_name %></h2>
-							<%# video %>
+							<video width="100%" height='100%' preload="none" controls muted autoplay loop>
+								<source src="<%= follow_comedy.video_url %>#t=0.5" type="video/mp4">
+								<source src="<%= follow_comedy.video_url %>#t=0.5" type="video/ogg">
+								<source src="<%= follow_comedy.video_url %>#t=0.5" type="video/webm">
+								<source src="<%= follow_comedy.video_url %>#t=0.5" type="video/mov">
+							</video>
 							<p><%= follow_comedy.funny_comment_body %></p>
-							<p><%= follow_comedy.good_count %></p>
-							<p><%= follow_comedy.funny_count %></p>
+							<p>いいね<%= follow_comedy.good_count %></p>
+							<p>おもろい<%= follow_comedy.funny_count %></p>
 						</div>
 					<% end %>
 				</div>
