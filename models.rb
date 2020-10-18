@@ -1,6 +1,7 @@
 require 'bundler/setup'
-require 'carrierwave/orm/activerecord'
 Bundler.require
+
+require 'carrierwave/orm/activerecord'
 
 ActiveRecord::Base.establish_connection(ENV['DATABASE_URL']||"sqlite3:db/development.db")
 
