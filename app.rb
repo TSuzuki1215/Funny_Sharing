@@ -302,7 +302,7 @@ get '/follow_timeline' do
 end
 
 get '/ranking_all' do
-  @total_rankings = Comedy_story.all.order(total_point: "DESC")
+  @total_rankings = Comedy_story.all.order(total_point: "DESC").limit(5)
 
   erb :ranking_all
 end

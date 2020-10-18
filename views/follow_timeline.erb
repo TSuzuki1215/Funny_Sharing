@@ -1,27 +1,26 @@
-<section class="center-vertical">
-
-</section>
-
-<% if !current_user.nil? %>
-	<section class="">
-		<% if @follow_comedys.nil? %>
-			<p>投稿がありません</p>
-		<% else %>
-			<% for follow_comedy in @follow_comedys do %>
-				<% camp = camp_name(follow_comedy.camp_id) %>
-				<% mentor = what_mentor?(follow_comedy.user_id) %>
-				<div class="">
-					<h1><%= mentor.mentor_name %></h1>
-					<h4><%= camp.camp_period %></h4>
-					<h2><%= camp.camp_name %></h2>
-					<%# video %>
-					<p><%= follow_comedy.funny_comment_body %></p>
-					<p><%= follow_comedy.good_count %></p>
-					<p><%= follow_comedy.funny_count %></p>
+<section class="MainContents">
+	<% if !current_user.nil? %>
+			<% if @follow_comedys.nil? %>
+				<p>投稿がありません</p>
+			<% else %>
+				<div class="TimeLine">
+					<% for follow_comedy in @follow_comedys do %>
+						<% camp = camp_name(follow_comedy.camp_id) %>
+						<% mentor = what_mentor?(follow_comedy.user_id) %>
+						<div class="ListCont">
+							<h1><%= mentor.mentor_name %></h1>
+							<h4><%= camp.camp_period %></h4>
+							<h2><%= camp.camp_name %></h2>
+							<%# video %>
+							<p><%= follow_comedy.funny_comment_body %></p>
+							<p><%= follow_comedy.good_count %></p>
+							<p><%= follow_comedy.funny_count %></p>
+						</div>
+					<% end %>
 				</div>
 			<% end %>
-		<% end %>
-	</section>
-<% else %>
-	<a href="/">ログインはこちらから</a>
-<% end %>
+
+	<% else %>
+		<a href="/">ログインはこちらから</a>
+	<% end %>
+</section>

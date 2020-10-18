@@ -14,7 +14,12 @@
 							<h1><%= user.mentor_name %></h1>
 							<h4><%= camp.camp_period %></h4>
 							<h2><%= camp.camp_name %></h2>
-							<%# video %>
+							<video width='100%' height='100%' preload="none" controls muted autoplay loop>
+								<source src="<%= ranking.video_url %>#t=0.5" type="video/mp4">
+								<source src="<%= ranking.video_url %>#t=0.5" type="video/ogg">
+								<source src="<%= ranking.video_url %>#t=0.5" type="video/webm">
+								<source src="<%= ranking.video_url %>#t=0.5" type="video/mov">
+							</video>
 							<p><%= ranking.funny_comment_body %></p>
 
 							<% i += 1 %>

@@ -11,7 +11,12 @@
           <div class="ListCont">
             <h4><%= camp.camp_period %></h4>
             <h2><%= camp.camp_name %></h2>
-            <%# video %>
+            <video width="100%" height='100%' preload="none" controls muted autoplay loop>
+							<source src="<%= user_comedy.video_url %>#t=0.5" type="video/mp4">
+							<source src="<%= user_comedy.video_url %>#t=0.5" type="video/ogg">
+							<source src="<%= user_comedy.video_url %>#t=0.5" type="video/webm">
+							<source src="<%= user_comedy.video_url %>#t=0.5" type="video/mov">
+						</video>
             <p><%= user_comedy.funny_comment_body %></p>
             <p>いいね<%= user_comedy.good_count %></p>
             <p>おもろい<%= user_comedy.funny_count %></p>
