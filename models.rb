@@ -1,7 +1,12 @@
 require 'bundler/setup'
+require 'carrierwave/orm/activerecord'
 Bundler.require
 
 ActiveRecord::Base.establish_connection(ENV['DATABASE_URL']||"sqlite3:db/development.db")
+
+class AvatarUploader < CarrierWave::Uploader::Base
+  storage :file
+end
 
 class User < ActiveRecord::Base
   has_secure_password
@@ -57,8 +62,16 @@ class Comedy_story < ActiveRecord::Base
   belongs_to :user
   has_many :likes
   has_many :funnys
+
+  mount_uploader :video_url, AvatarUploader
 end
 
 class Camp < ActiveRecord::Base
 
+end
+
+class MyUploader < CarrierWave::Uploader::Base
+  def extension_whitelist
+    %w(jpg jpeg gif png)
+  end
 end

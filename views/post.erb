@@ -3,14 +3,14 @@
 </section>
 
 <% if !current_user.nil? %>
-	<section class="">
+	<section class="MainContents">
 		<form action="/post_comedy" method="post" enctype="multipart/form-data">
       <select name="camp_id">
         <% for camp in @all_camps do %>
           <option value="<%= camp.id %>"><%= camp.camp_period %>・<%= camp.camp_name %></option>
         <% end %>
       </select>
-      <input type="file" accept="video/*">
+      <input type="file" name="video" accept="video/*">
       <input type="text" name="comment_body">
       <%#hidden user%>
       <input type="hidden" name="user_id" value="<%= session[:user] %>">

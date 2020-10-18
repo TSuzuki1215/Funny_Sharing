@@ -25,7 +25,9 @@
 
 						<h4><%= camp.camp_period %></h4>
 						<h2><%= camp.camp_name %></h2>
-						<%# video %>
+						<video width='512' height='288' id="splashvid" autoplay loop muted preload="none">
+							<source src="<%= comedy_story.video_url %>" type="video/*">
+						</video>
 						<p><%= comedy_story.funny_comment_body %></p>
 						<p>いいね<%= comedy_story.good_count %></p>
 						<p>おもろい<%= comedy_story.funny_count %></p>

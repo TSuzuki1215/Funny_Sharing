@@ -5,6 +5,7 @@ require 'sinatra/reloader' if development?
 
 require './models'
 require 'dotenv/load'
+require 'carrierwave/orm/activerecord'
 
 enable :sessions
 
@@ -261,7 +262,18 @@ get '/post' do
 end
 
 post '/post_comedy' do
-  Comedy_story.create({
+
+  comedy = Comedy_story.new
+  comedy.video_url = params[:video] # Assign a file like this, or
+
+  comedy.save!
+  comedy.video_url.url # => '/url/to/file.png'
+  comedy.video_url.current_path # => 'path/to/file.png'
+  comedy.video_url_identifier # => 'file.png'
+
+
+
+  comedy.update({
     user_id: params[:user_id],
     camp_id: params[:camp_id],
     funny_comment_body: params[:comment_body],
@@ -269,6 +281,8 @@ post '/post_comedy' do
     funny_count: 0,
     total_point: 0,
   })
+
+
   redirect '/'
 end
 
